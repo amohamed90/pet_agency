@@ -8,9 +8,17 @@
 <body>
     <h1>Pets</h1>
     {% for pet in pets %}
-    <div>
-        <img src="{{pet.photo_url}}" alt=""> 
-    </div>
+    <span>
+        <img width="500" height='300' src="{{pet.photo_url}}" alt="">
+    {% if pet.available %}
+      <p><a href="">{{pet.name}}</a> is available</p>
+    {% else %}
+        <p>Not available</p>
+        {% endif %}
+    </span>
     {% endfor %}
+    <form action="/add">
+        <button>Add a Pet</button>
+    </form>
 </body>
 </html>
