@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 from forms import AddPetForm
@@ -21,7 +21,7 @@ def index():
 
 
 @app.route("/add", methods=["GET", "POST"])
-def add_snack():
+def add_pet():
     """Pet add"""
 
     form = AddPetForm()
@@ -32,8 +32,7 @@ def add_snack():
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
-
-        return redirect("/add")
+        return redirect("/")
 
     else:
         return render_template(
