@@ -32,8 +32,36 @@ def add_pet():
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
+        available = form.available.data
+
+        pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes, available=bool(available))
+
+        db.session.add(pet)
+        db.session.commit()
         return redirect("/")
 
     else:
         return render_template(
             "pet_add_form.html", form=form)
+
+
+@app.route("/<int:pet_id>", methods=["GET", "POST"])
+def show_pet_info(pet_id):
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = AddPetForm(obj=pet)
+
+    if form.validate_on_submit():
+        photo_url = form.photo_url.data
+        notes = form.notes.data
+        available = form.available.data
+        db.session.commit()
+        return redirect(f"/users/{pet_id}")
+
+    else:
+        return render_template("pet_info.html", form=form, pet=pet)
+
+    pet = Pet.query.get_or_404(pet_id)
+    return render_template("pet_info.html", pet=pet)
+
+

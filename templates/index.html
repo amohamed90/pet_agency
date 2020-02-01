@@ -11,7 +11,7 @@
     <span>
         <img width="500" height='300' src="{{pet.photo_url}}" alt="">
     {% if pet.available %}
-      <p><a href="">{{pet.name}}</a> is available</p>
+      <p><a href="/{{pet.id}}">{{pet.name}}</a> is available</p>
     {% else %}
         <p>Not available</p>
         {% endif %}

@@ -3,7 +3,6 @@ from wtforms import StringField, FloatField
 from wtforms.validators import InputRequired, Optional, URL, ValidationError
 
 def species_check(form, field):
-    print("////////////////////////////////////",field.data)
     result = (field.data == "dog" or field.data == "cat" or field.data == "porcupine")
     print(result)
     if (not result):
@@ -20,5 +19,10 @@ class AddPetForm(FlaskForm):
     photo_url = StringField("Image Url", validators=[Optional(),URL()])
     age = FloatField("Age", validators=[InputRequired(), age_check])
     notes = StringField("Notes", validators=[Optional()])
+    available = StringField("Available", validators=[InputRequired()])
 
+class EditPetForm(FlaskForm):
 
+    photo_url = StringField("Image Url", validators=[Optional(),URL()])
+    notes = StringField("Notes", validators=[Optional()])
+    available = StringField("Available", validators=[InputRequired()])
