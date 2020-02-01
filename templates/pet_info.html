@@ -12,7 +12,25 @@
     <img width="500" height="300" src="{{pet.photo_url}}" alt="">
     <p>{{pet.name}} is a {{pet.species}} and has {{pet.age}} year old.</p>
   </div>
+  <form action="{{pet.id}}" id="pet-add-form" method="POST">
+    {{ form.hidden_tag() }}
+    <!--add type=hidden form fields -->
 
+    {% for field in form if field.widget.input_type != 'hidden' %}
+
+    <p>
+      {{ field.label }}
+      {{ field }}
+
+      {% for error in field.errors %}
+      {{ error }}
+      {% endfor %}
+    </p>
+
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+  </form>
 
 </body>
 </html>

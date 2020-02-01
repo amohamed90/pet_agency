@@ -1,10 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField
+from wtforms import StringField, FloatField, BooleanField, SelectField
 from wtforms.validators import InputRequired, Optional, URL, ValidationError
 
 def species_check(form, field):
-    result = (field.data == "dog" or field.data == "cat" or field.data == "porcupine")
-    print(result)
+    result = (field.data == "Dog" or field.data == "Cat" or field.data == "Porcupine")
     if (not result):
         raise ValidationError("Not a correct species")
     return result
@@ -15,14 +14,14 @@ def age_check(form, field):
 class AddPetForm(FlaskForm):
 
     name = StringField("Pet Name", validators=[InputRequired()])
-    species = StringField("Species", validators=[InputRequired(), species_check])
+    species = SelectField("Species", choices = [("Dog", "Dog"), ("Cat", "Cat"), ("Porcupine", "Porcupine")] ,validators=[InputRequired(), species_check])
     photo_url = StringField("Image Url", validators=[Optional(),URL()])
     age = FloatField("Age", validators=[InputRequired(), age_check])
     notes = StringField("Notes", validators=[Optional()])
-    available = StringField("Available", validators=[InputRequired()])
+    available = BooleanField("Available")
 
 class EditPetForm(FlaskForm):
 
     photo_url = StringField("Image Url", validators=[Optional(),URL()])
     notes = StringField("Notes", validators=[Optional()])
-    available = StringField("Available", validators=[InputRequired()])
+    available = BooleanField("Available")
